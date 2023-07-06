@@ -1,14 +1,15 @@
 import React from "react";
-import "./AboutusStyle.css";
+import "./Courses.css";
 import Bottom1 from "./Bottom";
 import Footer1 from "./Footer";
 import NewNavbar from "./Navbar";
+
 function Courses() {
   return (
     <>
-    <NewNavbar />
+      <NewNavbar />
       <div className="image-aboutus-banner" style={{ marginTop: 70 }}>
-        <div className="container ">
+        <div className="container">
           <div className="row">
             <div className="col-md-12">
               <h1 className="lg-text">About CDAC Mumbai Courses</h1>
@@ -38,70 +39,35 @@ function Courses() {
             />
 
             <hr />
-            <h2 style={{ textAlign: "center" }}>Our Team</h2>
+            <h2 style={{ textAlign: "center" }}>PG Diploma Courses</h2>
             <div className="row">
               <div className="col-6 col-sm-4">
                 <div className="card">
                   <img
-                    src={require("./Abhinav Verma.jpg")}
-                    alt="Jane"
+                    src={require("./DAC.jpg").default}
                     style={{ width: "100%" }}
                   />
                   <div className="container">
-                    <h2>Abhinav Verma</h2>
-                    <p className="title">Front-end Developer</p>
+                    <h2>PG-DAC</h2>
                     <p>
-                      Pursuing post graduation diploma in advanced Computing
-                      from CDAC Mumbai
+                        Post Graduate Diploma In Advanced Computing
                     </p>
-                    <p>abhinaverma1495@gmail.com</p>
-                    <p>
-                    <a href="https://www.linkedin.com/in/abhinav-verma-648555101/"><button className="button">Contact</button></a>
-                    </p>
-                  </div>
+                    </div>
                 </div>
               </div>
 
               <div className="col-6 col-sm-4">
                 <div className="card">
                   <img
-                    src={require("./Kunal.jpg")}
-                    alt="Mike"
+                    src={require("./DBDA.jpg").default}
                     style={{ width: "100%", height: "20%" }}
                   />
                   <div className="container">
-                    <h2>Kunal Suryawanshi</h2>
-                    <p className="title">Back-end Developer</p>
+                    <h2>PG-DBDA</h2>
                     <p>
-                      Pursuing post graduation diploma in advanced Computing
-                      from CDAC Mumbai
+                        Post Graduate Diploma in Big Data Analytics
                     </p>
-                    <p>kunalbsuryawanshi@gmail.com</p>
-                    <p>
-                    <a href="https://www.linkedin.com/in/kunal-suryawanshi-3758ab138/"><button className="button">Contact</button></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-6 col-sm-4">
-                <div className="card">
-                  <img
-                    src={require("./Abhishek.jpg")}
-                    alt="John"
-                    style={{ width: "100%", height: "20%" }}
-                  />
-                  <div className="container">
-                    <h2>Abhishekh kumar</h2>
-                    <p className="title">Documentation handler</p>
-                    <p>
-                      Pursuing post graduation diploma in advanced Computing
-                      from CDAC Mumbai
-                    </p>
-                    <p>abhimn135@gmail.com</p>
-                    <p>
-                      <a href="https://www.linkedin.com/me?trk=p_mwlite_feed_updates-secondary_nav"><button className="button">Contact</button></a> 
-                    </p>
+                   
                   </div>
                 </div>
               </div>
@@ -116,11 +82,12 @@ function Courses() {
 
             {/* Blog Categories Well */}
             <div className="well">
+              
               <h3>Our Vision, Mission & Values</h3>
               <div className="row">
                 <div className="col-lg-12">
                   <p>
-                    C-DAC has a well defined and understood vision, which
+                    C-DAC has a well-defined and understood vision, which
                     C-DACians strive to achieve
                   </p>
                   <a
@@ -142,7 +109,7 @@ function Courses() {
                 Centre for Development of Advanced Computing (C-DAC) is the
                 premier R&D organization of the Ministry of Electronics and
                 Information Technology (MeitY) for carrying out R&D in IT,
-                Electronics and associated areas. Different areas of C-DAC had
+                Electronics, and associated areas. Different areas of C-DAC had
                 originated at different times, many of which came out as a
                 result of identification of opportunities.
               </p>
@@ -151,8 +118,9 @@ function Courses() {
         </div>
       </div>
       <Footer1 />
-      <Bottom1/>
+      <Bottom1 />
     </>
   );
 }
+
 export default Courses;
