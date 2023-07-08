@@ -1,40 +1,32 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-
-import AboutUS from "./AboutUs";
-
+import AboutUS from "./Pages/AboutUs";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
-
-import NewNavbar from "./Navbar";
-
-import Contact from "./ContactUs";
-
-import Home from "./Homepage";
-import CandidateLogin from "./CandidateLogin";
-import FacultyLogin from "./FacultyLogin";
-import CandidateForgotPassword from "./CandidateForgotPassword";
-import FacultyForgetPass from "./FacultyForgetPass";
-
-import StudentRegistration1 from "./demo";
-import Facultyreg from "./demo1";
-
-import MyTodo from "./demo4";
-import MyTodoList from "./demo5";
-import InNavbar from "./InNavbar";
-import MyUserList from "./UserList";
-import InNavbar2 from "./InNavbar2";
-import Applicationlist from "./ApplicationList";
-import Courses from "./Courses";
+import NewNavbar from "./Pages/Navbar";
+import Contact from "./Pages/ContactUs";
+import Home from "./Pages/Homepage";
+import CandidateLogin from "./Pages/CandidateLogin";
+import FacultyLogin from "./Pages/FacultyLogin";
+import CandidateForgotPassword from "./Pages/CandidateForgotPassword";
+import FacultyForgetPass from "./Pages/FacultyForgetPass";
+import StudentRegistration1 from "./Pages/demo";
+import Facultyreg from "./Pages/demo1";
+import MyTodo from "./Pages/demo4";
+import MyTodoList from "./Pages/demo5";
+import InNavbar from "./Pages/InNavbar";
+import MyUserList from "./Pages/UserList";
+import InNavbar2 from "./Pages/InNavbar2";
+import Applicationlist from "./Pages/ApplicationList";
+import Courses from "./Pages/Courses";
+import RaiseConcern from "./Pages/RaiseConcern";
+import LeaveApplication from "./Pages/LeaveApplication";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-       
         <Routes>
-        
-
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
 
@@ -47,6 +39,8 @@ function App() {
           <Route path="/stdreg" element={<StudentRegistration1 />} />
           <Route path="/falreg" element={<Facultyreg />} />
           <Route path="/Courses" element={<Courses />} />
+          <Route path="/RaiseConcern" element={<RaiseConcern />} />
+          <Route path="/LeaveApplication" element={<LeaveApplication />} />
 
           <Route
             path="/newnav"
