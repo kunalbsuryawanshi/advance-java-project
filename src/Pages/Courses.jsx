@@ -18,11 +18,11 @@ function Courses() {
   return (
     <>
       <NewNavbar />
-      <div className="portion" style={{ marginTop: 70 }}>
+      <div className="portion" >
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1 className="lg-text">
+              <h1 className="lg-text mt-4">
                 <FaStackOverflow className="mb-3 text-primary"/> Courses{" "}
               </h1>
               <p className="image-aboutus-para"></p>

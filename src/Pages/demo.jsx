@@ -7,15 +7,18 @@ import RegistrationInstructions from "./RegistrationInstructions";
 import Footer1 from "./Footer";
 import Bottom1 from "./Bottom";
 import NewNavbar from "./Navbar";
+import { FaRegistered } from "react-icons/fa";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const StudentRegistration1 = () => {
   let [user, setUser] = useState({
-    username: "",
+    name: "",
     password: "",
     confirmPassword: "",
     email: "",
     mobile: "",
-    prnnumber: "",
+    prnNumber: "",
   });
 
   let [errors, setErrors] = useState({
@@ -28,13 +31,13 @@ const StudentRegistration1 = () => {
   });
 
   let handlerPrnAction = (e) => {
-    let newuser = { ...user, prnnumber: e.target.value };
+    let newuser = { ...user, prnNumber: e.target.value };
     setUser(newuser);
     setErrors({ ...errors, prnError: "" });
   };
 
   let handlerUsernameAction = (e) => {
-    let newuser = { ...user, username: e.target.value };
+    let newuser = { ...user, name: e.target.value };
     setUser(newuser);
     setErrors({ ...errors, nameError: "" });
   };
@@ -74,10 +77,10 @@ const StudentRegistration1 = () => {
       prnError: "",
     };
 
-    if (user.username.trim() === "") {
+    if (user.name.trim() === "") {
       newErrors.nameError = "Name is required";
       isValid = false;
-    } else if (!isValidName(user.username)) {
+    } else if (!isValidName(user.name)) {
       newErrors.nameError =
         "Name should contain only alphabets and be less than 50 characters";
       isValid = false;
@@ -116,10 +119,10 @@ const StudentRegistration1 = () => {
       isValid = false;
     }
 
-    if (user.prnnumber.trim() === "") {
+    if (user.prnNumber.trim() === "") {
       newErrors.prnError = "PRN number is required";
       isValid = false;
-    } else if (!isValidPRN(user.prnnumber)) {
+    } else if (!isValidPRN(user.prnNumber)) {
       newErrors.prnError = "Invalid PRN number format";
       isValid = false;
     }
@@ -127,37 +130,6 @@ const StudentRegistration1 = () => {
     setErrors(newErrors);
     setShowPopup(true);
     return isValid;
-  };
-  let [showPopup, setShowPopup] = useState(false);
-
-  let registerAction = async (e) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      // BACKEND
-      let url = `http://localhost:4000/adduser?username=${user.username}&password=${user.password}&email=${user.email}&mobile=${user.mobile}&prnnumber=${user.prnnumber}`;
-      await fetch(url);
-
-      let newuser = {
-        username: "",
-        password: "",
-        confirmPassword: "",
-        email: "",
-        mobile: "",
-        prnnumber: "",
-      };
-      setUser(newuser);
-      setErrors({
-        nameError: "",
-        passwordError: "",
-        confirmPasswordError: "",
-        emailError: "",
-        mobileError: "",
-        prnError: "",
-      });
-      alert("Registration successful!");
-      setShowPopup(false);
-    }
   };
 
   let isValidName = (name) => {
@@ -190,53 +162,113 @@ const StudentRegistration1 = () => {
     return prnRegex.test(prn);
   };
 
+  let [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+  let registerAction = async (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      // BACKEND
+      console.log(user);
+      let url = "http://localhost:8181/add-student-registration-info";
+      axios.post(url, user).then((response) => {
+        console.log(response.data);
+      });
+
+      let newuser = {
+        name: "",
+        password: "",
+        confirmPassword: "",
+        email: "",
+        mobile: "",
+        prnNumber: "",
+      };
+      setUser(newuser);
+      setErrors({
+        nameError: "",
+        passwordError: "",
+        confirmPasswordError: "",
+        emailError: "",
+        mobileError: "",
+        prnError: "",
+      });
+      alert("Registration successful!");
+      setShowPopup(false);
+      setTimeout(() => {
+        navigate("/studentlogin", { replace: true });
+      }, 1000);
+    }
+  };
+
+  // function sendStudentRegistrationInfo(event) {
+  //   event.preventDefault();
+  //   console.log(user);
+  //   let url = "http://localhost:8181/add-student-registration-info";
+  //   axios.post(url, user).then((response) => {
+  //     console.log(response.data);
+  //   });
+  // }
+
   return (
     <>
       <NewNavbar />
       <div>
         <div className="portion shadow-lg container-fluid">
-          <h1 className="d-flex p-5 text-white">Student Registration Page</h1>
+          <h1 className="d-flex p-5 text-white">
+            <FaRegistered className="mt-1 me-1 text-warning" /> Student
+            Registration Page
+          </h1>
         </div>
 
-        <div className="registration-page col-sm-12 col-md-8 shadow-lg p-3 bg-white rounded p-3 mb-4">
+        <div className="registration-page col-sm-12 col-md-8 shadow-lg p-3 mt-5 bg-white rounded p-3 mb-5">
           <div className="row" style={{ marginBottom: "20px" }}>
             <img className="img-fluid" src={img} alt="" />
           </div>
-          <h2>Registration Page</h2>
+          <h2 className="text-center">Registration Page</h2>
           <hr></hr>
-          <form>
+          <form className="needs-validation " novalidate>
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="name">Name *</label>
+                  <label className="text-secondary ms-1" htmlFor="name">
+                    Name <span className="text-danger">*</span>
+                  </label>
                   <input
+                    className="form-control shadow-sm"
                     type="text"
                     id="name"
                     name="name"
-                    value={user.username}
+                    value={user.name}
                     onChange={handlerUsernameAction}
+                    placeholder="Enter name . . ."
+                    required
                   />
-                  <span className="form-text">
-                    As per Degree Certificate / Govt issued ID Card
-                  </span>
                   {errors.nameError && (
-                    <div className="error">{errors.nameError}</div>
+                    <div style={{ fontSize: "13px" }} className="error ms-1">
+                      {errors.nameError}
+                    </div>
                   )}
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
+                  <label className="text-secondary ms-1" htmlFor="email">
+                    Email <span className="text-danger">*</span>
+                  </label>
                   <input
+                    className="form-control shadow-sm"
                     type="email"
                     id="email"
                     name="email"
                     value={user.email}
                     onChange={handlerEmailAction}
+                    placeholder="Enter email . . ."
+                    required
                   />
-                  <span className="form-text">e.g. example123@abc.com</span>
                   {errors.emailError && (
-                    <div className="error">{errors.emailError}</div>
+                    <div style={{ fontSize: "13px" }} className="error ms-1">
+                      {errors.emailError}
+                    </div>
                   )}
                 </div>
               </div>
@@ -244,40 +276,48 @@ const StudentRegistration1 = () => {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="mobile">Mobile Number *</label>
+                  <label className="text-secondary ms-1" htmlFor="mobile">
+                    Mobile Number <span className="text-danger">*</span>
+                  </label>
                   <input
+                    className="form-control shadow-sm"
                     type="tel"
                     id="mobile"
                     name="mobile"
                     pattern="[0-9]{10}"
                     value={user.mobile}
                     onChange={handlerMobileAction}
+                    placeholder="Enter mobile number . . ."
+                    required
                   />
-                  <span className="form-text">
-                    Enter 10 digit Mobile No. e.g. 9876543210
-                  </span>
                   {errors.mobileError && (
-                    <div className="error">{errors.mobileError}</div>
+                    <div style={{ fontSize: "13px" }} className="error ms-1">
+                      {errors.mobileError}
+                    </div>
                   )}
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="prn">PRN Number *</label>
+                  <label className="text-secondary ms-1" htmlFor="prn">
+                    PRN Number <span className="text-danger">*</span>
+                  </label>
                   <input
+                    className="form-control shadow-sm"
                     type="text"
                     id="prn"
                     name="prn"
-                    value={user.prnnumber}
+                    value={user.prnNumber}
                     onChange={handlerPrnAction}
                     pattern="[0-9]{12}"
                     title="Please enter a 12-digit PRN number"
+                    placeholder="Enter PRN number . . ."
+                    required
                   />
-                  <span className="form-text">
-                    Enter 12 digit PRN No. e.g. 230340256001
-                  </span>
                   {errors.prnError && (
-                    <div className="error">{errors.prnError}</div>
+                    <div style={{ fontSize: "13px" }} className="error ms-1">
+                      {errors.prnError}
+                    </div>
                   )}
                 </div>
               </div>
@@ -285,34 +325,45 @@ const StudentRegistration1 = () => {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="password">Password *</label>
+                  <label className="text-secondary ms-1" htmlFor="password">
+                    Password <span className="text-danger">*</span>
+                  </label>
                   <input
+                    className="form-control shadow-sm"
                     type="password"
                     id="password"
                     name="password"
                     value={user.password}
                     onChange={handlerPasswordAction}
+                    placeholder="Enter password . . ."
+                    required
                   />
-                  <span className="form-text">Min:6 & Max:20 Characters</span>
                   {errors.passwordError && (
-                    <div className="error">{errors.passwordError}</div>
+                    <div style={{ fontSize: "13px" }} className="error ms-1">
+                      {errors.passwordError}
+                    </div>
                   )}
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="confirmPassword">Confirm Password *</label>
+                  <label
+                    className="text-secondary ms-1"
+                    htmlFor="confirmPassword"
+                  >
+                    Confirm Password <span className="text-danger">*</span>
+                  </label>
                   <input
+                    className="form-control shadow-sm"
                     type="password"
                     id="confirmPassword"
                     name="confirmPassword"
                     value={user.confirmPassword}
                     onChange={handlerConfirmPasswordAction}
                     autoComplete="new-password"
+                    placeholder="Enter confirm password . . ."
+                    required
                   />
-                  {errors.confirmPasswordError && (
-                    <div className="error">{errors.confirmPasswordError}</div>
-                  )}
                 </div>
               </div>
             </div>
@@ -320,8 +371,8 @@ const StudentRegistration1 = () => {
               <div className="col-md-12 text-center mt-4">
                 <div className="form-group">
                   <button
+                    className="btn btn-success shadow-sm "
                     type="submit"
-                    className="btn btn-primary"
                     onClick={registerAction}
                   >
                     Register

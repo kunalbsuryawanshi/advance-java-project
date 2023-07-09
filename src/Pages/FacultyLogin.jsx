@@ -7,6 +7,7 @@ import Bottom1 from "./Bottom";
 import { useNavigate } from "react-router-dom";
 import NewNavbar from "./Navbar";
 import { FaAddressBook } from "react-icons/fa";
+import axios from "axios";
 
 function FacultyLogin() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function FacultyLogin() {
   let [errorFields, setErrorFields] = useState([]);
 
   let [user, setUser] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -26,47 +27,32 @@ function FacultyLogin() {
   };
 
   let handlerEmailAction = (e) => {
-    let newuser = { ...user, email: e.target.value };
+    let newuser = { ...user, username: e.target.value };
     setUser(newuser);
   };
 
   let loginAction = async () => {
-    try {
-      formRef.current.classList.add("was-validated");
-      let formStatus = formRef.current.checkValidity();
-      if (!formStatus) {
-        return;
-      }
-
-      // BACKEND :: ...
-      let url = `http://localhost:4000/login-by-post-faculty`;
-      let data = { email: user.email, password: user.password };
-      let res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (res.status === 500) {
-        let errorMessage = await res.text();
-        throw new Error(errorMessage);
-      }
-
-      localStorage.setItem("loginStatusfac", "true");
-      navigate("/facnavbar", { replace: true });
-    } catch (err) {
-      alert(err.message);
-      setIsError(true);
-      setErrorFields(["password"]);
-    } finally {
-      setTimeout(() => {
-        setIsError(false);
-        setIsSuccess(false);
-        setErrorFields([]);
-      }, 5000);
+    formRef.current.classList.add("was-validated");
+    let formStatus = formRef.current.checkValidity();
+    if (!formStatus) {
+      return;
     }
+
+    // BACKEND :: ...
+    let url = "http://localhost:8181/faculty-login";
+    axios.post(url, user).then((response) => {
+      if (response.data == 500) {
+        console.log(response.data);
+        setIsError(true);
+      } else {
+        localStorage.setItem("loginStatuscan", "true");
+        navigate("/Enquiries", { replace: true });
+      }
+    });
+    setTimeout(() => {
+      setIsError(false);
+      setIsSuccess(false);
+    }, 2000);
   };
 
   return (
@@ -75,7 +61,10 @@ function FacultyLogin() {
       <div>
         <div className="App">
           <div className="portion shadow-lg">
-            <h1 className="d-flex p-5 text-white"><FaAddressBook className="mt-1 me-2 text-danger"/>Faculty Login</h1>
+            <h1 className="d-flex p-5 text-white">
+              <FaAddressBook className="mt-1 me-2 text-danger" />
+              Faculty Login
+            </h1>
             <br />
           </div>
           <div className="container ">
@@ -89,23 +78,21 @@ function FacultyLogin() {
                     style={{ marginTop: "40px" }}
                   >
                     <div className="col-sm-12 col-md-8 form-group mt-4">
-                      <label htmlFor="email">
-                        <h5>Faculty Email Id:</h5>
+                      <label htmlFor="username">
+                        <h5>Faculty username:</h5>
                       </label>
                       <input
-                        type="email"
-                        className={`form-control ${
-                          errorFields.includes("email") ? "is-invalid" : ""
-                        }`}
-                        id="email"
-                        placeholder=" Enter email . . . "
-                        value={user.email}
+                        type="password"
+                        className="form-control"
+                        id="username"
+                        placeholder=" Enter username . . . "
+                        value={user.username}
                         onChange={handlerEmailAction}
                         required
                       />
-                      {errorFields.includes("email") && (
+                      {errorFields.includes("username") && (
                         <div className="invalid-feedback">
-                          Please enter a valid email.
+                          Please enter a valid username.
                         </div>
                       )}
                     </div>
@@ -115,9 +102,7 @@ function FacultyLogin() {
                       </label>
                       <input
                         type="password"
-                        className={`form-control ${
-                          errorFields.includes("password") ? "is-invalid" : ""
-                        }`}
+                        className="form-control"
                         id="password"
                         placeholder=" Enter password . . ."
                         value={user.password}
@@ -142,12 +127,15 @@ function FacultyLogin() {
                       <div className="alert alert-success">Success</div>
                     )}
                     {isError && (
-                      <div className="alert alert-danger">Login failed</div>
+                      <div className="text-danger">Invalid username or password</div>
                     )}
                     <div style={{ paddingLeft: "70px" }}>
                       <div className="row justify-content-center mt-1">
                         <div className="col-12 col-md-5 mr-5 text-secondary">
-                          Forgot Password? <a style={{textDecoration:'none'}} href="/falfor">Click Here</a>
+                          Forgot Password?{" "}
+                          <a style={{ textDecoration: "none" }} href="/falfor">
+                            Click Here
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -176,7 +164,7 @@ function FacultyLogin() {
                         </li>
                         <li style={{ margin: "5px 0px 0px 0px" }}>
                           Please use the Form No and Password sent to your
-                          registered email.
+                          registered username.
                         </li>
                         <li style={{ margin: "5px 0px 0px 0px" }}>
                           In case you are found ineligible during any stage of

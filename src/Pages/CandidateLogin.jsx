@@ -7,6 +7,7 @@ import Bottom1 from "./Bottom";
 import { useNavigate } from "react-router-dom";
 import NewNavbar from "./Navbar";
 import { FaAddressBook, FaBlog, FaInbox } from "react-icons/fa";
+import axios from "axios";
 
 function CandidateLogin() {
   const navigate = useNavigate();
@@ -30,40 +31,28 @@ function CandidateLogin() {
   };
 
   let loginAction = async () => {
-    try {
-      formRef.current.classList.add("was-validated");
-      let formStatus = formRef.current.checkValidity();
-      if (!formStatus) {
-        return;
-      }
-
-      // BACKEND :: ...
-      let url = `http://localhost:4000/login-by-post`;
-      let data = { email: user.email, password: user.password };
-      let res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (res.status == 500) {
-        let erroMessage = await res.text();
-        throw new Error(erroMessage);
-      }
-
-      localStorage.setItem("loginStatuscan", "true");
-      navigate("/newnav", { replace: true });
-    } catch (err) {
-      alert(err.message);
-      setIsError(true);
-    } finally {
-      setTimeout(() => {
-        setIsError(false);
-        setIsSuccess(false);
-      }, 5000);
+    formRef.current.classList.add("was-validated");
+    let formStatus = formRef.current.checkValidity();
+    if (!formStatus) {
+      return;
     }
+
+    // BACKEND :: ...
+    console.log(user);
+    let url = "http://localhost:8181/student-login";
+    axios.post(url, user).then((response) => {
+      if (response.data == 500) {
+        console.log(response.data);
+        setIsError(true);
+      } else {
+        localStorage.setItem("loginStatuscan", "true");
+        navigate("/RaiseConcern", { replace: true });
+      }
+    });
+    setTimeout(() => {
+      setIsError(false);
+      setIsSuccess(false);
+    }, 2000);
   };
 
   return (
@@ -71,7 +60,11 @@ function CandidateLogin() {
       <NewNavbar />
       <div className="App">
         <div className="portion shadow-lg">
-         <h1 className="d-flex p-5 text-white"> <FaAddressBook className="mt-1 me-2 text-danger"/>Student Login</h1>
+          <h1 className="d-flex p-5 text-white">
+            {" "}
+            <FaAddressBook className="mt-1 me-2 text-danger" />
+            Student Login
+          </h1>
         </div>
         <div className="container ">
           <div className="row justify-content-center mt-5 mb-5">
@@ -123,12 +116,17 @@ function CandidateLogin() {
                   {isSuccess && (
                     <div className="alert alert-success">Success</div>
                   )}
-                  {isError && <div className="alert alert-danger">Error</div>}
+                  {isError && (
+                    <div className="text-danger">Invalid email or password</div>
+                  )}
                   <div style={{ paddingLeft: "70px" }}>
                     <div className="row justify-content-center mt-3">
                       <div className="col-12 col-md-5 mr-5 text-secondary ">
                         Not yet Registered?
-                        <a style={{ textDecoration: "none" }} href="/stdreg">
+                        <a
+                          style={{ textDecoration: "none" }}
+                          href="/StudentRgistration"
+                        >
                           {" "}
                           Register
                         </a>

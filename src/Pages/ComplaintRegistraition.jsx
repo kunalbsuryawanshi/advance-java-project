@@ -1,28 +1,24 @@
-import NewNavbar from "./Navbar";
-import "./LeaveApplication.css";
-import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import InnerNavigation from "./InnerNavigation";
 
-
-
-function LeaveApplication() {
+function ComplaintRegistration() {
   const navigate = useNavigate();
   let formRef = useRef();
 
   let [isSuccess, setIsSuccess] = useState(false);
   let [isError, setIsError] = useState(false);
 
-  
   let [user, setUser] = useState({
     toEmail: "cdacmumbai@gmail.com",
     studentEmail: "",
-    describedIssue: "",
+    describedComplaint: "",
   });
 
-  let handlerdescribedIssue = (e) => {
-    let newuser = { ...user, describedIssue: e.target.value };
+  let handlerdescribedComplaint = (e) => {
+    let newuser = { ...user, describedComplaint: e.target.value };
     setUser(newuser);
   };
 
@@ -37,7 +33,7 @@ function LeaveApplication() {
       return;
     }
     console.log(user);
-    let url = "http://localhost:8181/leave-application";
+    let url = "http://localhost:8181/complaint-registration";
     axios.post(url, user).then((response) => {
       localStorage.setItem("loginStatuscan", "true");
       navigate("/RaiseConcern", { replace: true });
@@ -54,7 +50,7 @@ function LeaveApplication() {
         <div className="col-sm-12 col-md-5 p-5 shadow">
           <div className="leav-portion mt-2 mb-5">
             <h3 className="text-center pt-4 text-light">
-              <strong>Leave Application</strong>
+              <strong>Complaint</strong>
             </h3>
           </div>
           <form ref={formRef} className="needs-validation">
@@ -67,9 +63,7 @@ function LeaveApplication() {
               disabled
               readonly
             />
-            <label className="ms-1 text-secondary text-center">
-              Enter email :{" "}
-            </label>
+            <label className="ms-1 text-secondary text-center">From : </label>
             <input
               className="form-control mb-4 shadow-sm p-1"
               type="email"
@@ -79,14 +73,14 @@ function LeaveApplication() {
               required
             />
             <label className="ms-1 text-secondary text-center">
-              Describe Issue :{" "}
+              Describe Complaint :{" "}
             </label>
             <textarea
               rows="5"
               className="form-control mb-4 shadow-sm"
-              placeholder="Describe Issue . . ."
-              value={user.describedIssue}
-              onChange={handlerdescribedIssue}
+              placeholder="Describe complaint . . ."
+              value={user.describedComplaint}
+              onChange={handlerdescribedComplaint}
               required
             ></textarea>
             <input
@@ -101,4 +95,4 @@ function LeaveApplication() {
     </>
   );
 }
-export default LeaveApplication;
+export default ComplaintRegistration;
