@@ -1,4 +1,9 @@
-import { FaPen, FaPenAlt, FaPencilAlt, FaPencilRuler, FaTrashAlt } from "react-icons/fa";
+import {
+  FaCheck,
+  FaExclamationCircle,
+  FaPencilAlt,
+  FaTrashAlt,
+} from "react-icons/fa";
 import InnerNavigation from "./InnerNavigation";
 import "./Table.css";
 import { useEffect } from "react";
@@ -6,7 +11,7 @@ import axios from "axios";
 import { useState } from "react";
 function LeaveStatus() {
   const [leavRecord, setLeaveRecord] = useState([]);
-
+  let [isError, setIsError] = useState(false);
   let email = "";
   function readEmail(event) {
     email = event.target.value;
@@ -19,7 +24,14 @@ function LeaveStatus() {
     event.preventDefault();
     let url = `http://localhost:8181/get-leave-application-record?email=${email}`;
     axios.get(url).then((response) => {
-      //console.log(response.data);
+      if (response.data.length <= 0) {
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 2000);
+
+      }
+
       setLeaveRecord(response.data);
     });
   }
@@ -31,12 +43,18 @@ function LeaveStatus() {
         <td>{leaveApplication.toEmail}</td>
         <td>{leaveApplication.studentEmail}</td>
         <td>{leaveApplication.describedIssue}</td>
+        <td className="text-success">
+          <FaCheck className="mb-1 me-1" />
+          Submitted...
+        </td>
         <td>
           <a style={{ textDecoration: "none" }} href="/UpdateLeaveApplication">
             <span className="bg-warning p-2 rounded-3 shadow me-2">
               <FaPencilAlt className="fs-5 text-light" />
             </span>
           </a>
+        </td>
+        <td>
           <a style={{ textDecoration: "none" }} href="/DeleteLeaveRecord">
             <span className="bg-danger p-2 rounded-3 shadow ">
               <FaTrashAlt className="fs-5 text-light" />
@@ -65,6 +83,12 @@ function LeaveStatus() {
               Get Records
             </button>
           </form>
+          {isError && (
+            <div className="text-danger text-center mt-2">
+              Invalid email
+              <FaExclamationCircle className="ms-1 mb-1" />
+            </div>
+          )}
         </div>
       </div>
       <div className="row justify-content-center  p-5">
@@ -75,7 +99,9 @@ function LeaveStatus() {
               <th>To</th>
               <th>From</th>
               <th>Reason</th>
-              <th>Action</th>
+              <th>Status</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>{t}</tbody>

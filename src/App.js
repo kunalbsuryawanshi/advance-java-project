@@ -46,9 +46,15 @@ function App() {
           <Route path="/studentlogin" element={<CandidateLogin />} />
           <Route path="/facultylogin" element={<FacultyLogin />} />
           <Route path="/contactus" element={<Contact />} />
-          <Route path="/candfor" element={<CandidateForgotPassword />} />
-          <Route path="/falfor" element={<FacultyForgetPass />} />
-          <Route path="/StudentRgistration" element={<StudentRegistration1 />} />
+          <Route
+            path="/CandidateForgotPassword"
+            element={<CandidateForgotPassword />}
+          />
+          <Route path="/FacultyForgetPass" element={<FacultyForgetPass />} />
+          <Route
+            path="/StudentRgistration"
+            element={<StudentRegistration1 />}
+          />
           <Route path="/falreg" element={<Facultyreg />} />
           <Route path="/Courses" element={<Courses />} />
           <Route path="/RaiseConcern" element={<RaiseConcern />} />
@@ -56,18 +62,31 @@ function App() {
           <Route path="/LeaveApplication" element={<LeaveApplication />} />
           <Route path="/LeaveStatus" element={<LeaveStatus />} />
           <Route path="/ComplaintStatus" element={<ComplaintStatus />} />
-          <Route path="/ComplaintRegistration" element={<ComplaintRegistration />} />
-          <Route path="/DeleteComplaintRecord" element={<DeleteComplaintRecord />} />
+          <Route
+            path="/ComplaintRegistration"
+            element={<ComplaintRegistration />}
+          />
+          <Route
+            path="/DeleteComplaintRecord"
+            element={<DeleteComplaintRecord />}
+          />
           <Route path="/DeleteLeaveRecord" element={<DeleteLeaveRecord />} />
-          <Route path="/UpdateLeaveApplication" element={<UpdateLeaveApplication />} />
+          <Route
+            path="/UpdateLeaveApplication"
+            element={<UpdateLeaveApplication />}
+          />
           <Route path="/UpdateComplaint" element={<UpdateComplaint />} />
           <Route path="/Enquiries" element={<Enquiries />} />
-          <Route path="/FacultyLeaveApplication" element={<FacultyLeaveApplication />} />
+          <Route
+            path="/FacultyLeaveApplication"
+            element={<FacultyLeaveApplication />}
+          />
           <Route path="/FacultyComplaint" element={<FacultyComplaint />} />
           <Route path="/FacultyLeaveDelete" element={<FacultyLeaveDelete />} />
-          <Route path="/FacultyComplaintDelete" element={<FacultyComplaintDelete />} />
-
-          
+          <Route
+            path="/FacultyComplaintDelete"
+            element={<FacultyComplaintDelete />}
+          />
 
           <Route
             path="/newnav"

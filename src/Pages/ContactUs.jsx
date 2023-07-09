@@ -85,7 +85,7 @@ const Contact = () => {
       <div>
         <div
           className="contact2"
-          style={{ backgroundImage: "url('https://www.cdac.in/img/hpc.png')" }}
+          style={{ backgroundImage: "url('https://www.cdac.in/img/hpc.png')", backgroundRepeat:'no-repeat' }}
           id="contact"
         >
           <h1 style={{ color: "orange", fontSize: 70 }}>Contact Us</h1>

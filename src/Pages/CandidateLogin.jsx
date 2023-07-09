@@ -6,7 +6,7 @@ import Footer1 from "./Footer";
 import Bottom1 from "./Bottom";
 import { useNavigate } from "react-router-dom";
 import NewNavbar from "./Navbar";
-import { FaAddressBook, FaBlog, FaInbox } from "react-icons/fa";
+import { FaAddressBook, FaBlog, FaCheck, FaExclamationCircle, FaInbox } from "react-icons/fa";
 import axios from "axios";
 
 function CandidateLogin() {
@@ -44,15 +44,19 @@ function CandidateLogin() {
       if (response.data == 500) {
         console.log(response.data);
         setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 2000);
       } else {
         localStorage.setItem("loginStatuscan", "true");
-        navigate("/RaiseConcern", { replace: true });
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+          navigate("/RaiseConcern", { replace: true });
+        }, 2000);
       }
     });
-    setTimeout(() => {
-      setIsError(false);
-      setIsSuccess(false);
-    }, 2000);
+    
   };
 
   return (
@@ -114,20 +118,27 @@ function CandidateLogin() {
                     />
                   </div>
                   {isSuccess && (
-                    <div className="alert alert-success">Success</div>
+                    <div className="text-success">Login succesful<FaCheck className="ms-1 mb-1"/></div>
                   )}
                   {isError && (
-                    <div className="text-danger">Invalid email or password</div>
+                    <div className="text-danger">Invalid email or password<FaExclamationCircle className="ms-1 mb-1"/></div>
                   )}
                   <div style={{ paddingLeft: "70px" }}>
-                    <div className="row justify-content-center mt-3">
-                      <div className="col-12 col-md-5 mr-5 text-secondary ">
+                    <div className="row justify-content-center">
+                      <div className="col-12 col-md-6 mr-5 text-secondary my-2 ">
+                        <a
+                          style={{ textDecoration: "none" }}
+                          href="/CandidateForgotPassword"
+                        >
+                          Forgot password?
+                        </a>
+                      </div>
+                      <div className="col-12 col-md-6 mr-5 text-secondary ">
                         Not yet Registered?
                         <a
                           style={{ textDecoration: "none" }}
                           href="/StudentRgistration"
                         >
-                          {" "}
                           Register
                         </a>
                       </div>

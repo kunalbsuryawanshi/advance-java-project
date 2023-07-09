@@ -6,7 +6,7 @@ import Footer1 from "./Footer";
 import Bottom1 from "./Bottom";
 import { useNavigate } from "react-router-dom";
 import NewNavbar from "./Navbar";
-import { FaAddressBook } from "react-icons/fa";
+import { FaAddressBook, FaCheck, FaExclamationCircle } from "react-icons/fa";
 import axios from "axios";
 
 function FacultyLogin() {
@@ -44,15 +44,18 @@ function FacultyLogin() {
       if (response.data == 500) {
         console.log(response.data);
         setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 2000);
       } else {
         localStorage.setItem("loginStatuscan", "true");
-        navigate("/Enquiries", { replace: true });
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+          navigate("/Enquiries", { replace: true });
+        }, 2000);
       }
     });
-    setTimeout(() => {
-      setIsError(false);
-      setIsSuccess(false);
-    }, 2000);
   };
 
   return (
@@ -124,17 +127,21 @@ function FacultyLogin() {
                       />
                     </div>
                     {isSuccess && (
-                      <div className="alert alert-success">Success</div>
+                      <div className="text-success">Login successful<FaCheck className="ms-1 mb-1"/></div>
                     )}
                     {isError && (
-                      <div className="text-danger">Invalid username or password</div>
+                      <div className="text-danger">
+                        Invalid username or password<FaExclamationCircle className="ms-1 mb-1"/>
+                      </div>
                     )}
                     <div style={{ paddingLeft: "70px" }}>
                       <div className="row justify-content-center mt-1">
                         <div className="col-12 col-md-5 mr-5 text-secondary">
-                          Forgot Password?{" "}
-                          <a style={{ textDecoration: "none" }} href="/falfor">
-                            Click Here
+                          <a
+                            style={{ textDecoration: "none" }}
+                            href="/FacultyForgetPass"
+                          >
+                            Forgot Password?{" "}
                           </a>
                         </div>
                       </div>

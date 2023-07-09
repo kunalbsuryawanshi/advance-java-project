@@ -5,60 +5,56 @@ import img from "../Images/edutrain.jpeg";
 import { useNavigate } from "react-router-dom";
 import Footer1 from "./Footer";
 import Bottom1 from "./Bottom";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import NewNavbar from "./Navbar";
+import axios from "axios";
+import { FaCheck, FaExclamationCircle, FaXingSquare } from "react-icons/fa";
 
 function FacultyForgetPass() {
   const navigate = useNavigate();
   let formRef = useRef();
-  let [showModal, setShowModal] = useState(false);
-  let [modalContent, setModalContent] = useState("");
+  let [isSuccess, setIsSuccess] = useState(false);
+  let [isError, setIsError] = useState(false);
 
   let [user, setUser] = useState({
-    email: "",
+    username: "",
+    password: "",
   });
 
-  let handlerEmailAction = (e) => {
-    let newuser = { ...user, email: e.target.value };
+  let handlerUsernameAction = (e) => {
+    let newuser = { ...user, username: e.target.value };
+    setUser(newuser);
+  };
+  let handlerPasswordAction = (e) => {
+    let newuser = { ...user, password: e.target.value };
     setUser(newuser);
   };
 
   let loginAction = async () => {
-    try {
-      formRef.current.classList.add("was-validated");
-      let formStatus = formRef.current.checkValidity();
-      if (!formStatus) {
-        return;
-      }
-
-      // BACKEND :: ...
-      let url = `http://localhost:4000/findfac`;
-      let data = { email: user.email };
-      let res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (res.status === 500) {
-        let errorMessage = await res.text();
-        throw new Error(errorMessage);
-      }
-
-      let response = await res.text();
-      setModalContent(response);
-      setShowModal(true);
-    } catch (err) {
-      alert(err.message);
+    formRef.current.classList.add("was-validated");
+    let formStatus = formRef.current.checkValidity();
+    if (!formStatus) {
+      return;
     }
-  };
 
-  let handleCloseModal = () => {
-    setShowModal(false);
-    setModalContent("");
+    // BACKEND :: ...
+    let url = "http://localhost:8181/faculty-forgot-password";
+    axios.post(url, user).then((response) => {
+      if (response.data == 500) {
+        console.log(response.data);
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 2000);
+      } else {
+        localStorage.setItem("loginStatuscan", "true");
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+          navigate("/facultylogin", { replace: true });
+        }, 2000);
+      }
+    });
+
   };
 
   return (
@@ -71,48 +67,50 @@ function FacultyForgetPass() {
             <br />
           </div>
           <div className="container ">
-            <div className="row justify-content-center mt-3">
-              <div className="col-sm-12 col-md-8 shadow-lg p-3 bg-white rounded p-3">
+            <div className="row justify-content-center mt-5">
+              <div className="col-sm-12 col-md-6 shadow-lg p-3 bg-white rounded p-3">
                 <img src={img} alt="Student" className="img-fluid" />
 
                 <form ref={formRef} className="needs-validation">
-                  <div
-                    className="row justify-content-center"
-                    style={{ marginTop: "80px" }}
-                  >
-                    <div className="col-7 form-group mt-4">
-                      <label htmlFor="text">
-                        <h5>Email Id:</h5>
+                  <div className="row justify-content-center mt-3">
+                    <div className="col-sm-12 col-md-8 form-group mt-4">
+                      <label className="" htmlFor="text">
+                        Username :
                       </label>
                       <input
-                        type="email"
+                        type="password"
                         className="form-control"
                         id="PRNid"
-                        placeholder="Enter Email Id"
-                        value={user.email}
-                        onChange={handlerEmailAction}
+                        placeholder="Enter email . . ."
+                        value={user.username}
+                        onChange={handlerUsernameAction}
                         required
                       />
-                    </div>
-                    <div className="d-flex justify-content-center mt-3">
+                      <label className="mt-3" htmlFor="text">
+                        Change Password :
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        id="PRNid"
+                        placeholder="Enter new password . . ."
+                        value={user.password}
+                        onChange={handlerPasswordAction}
+                        required
+                      />
                       <input
                         type="button"
-                        value="Verify"
-                        className="custom-btn btn-1 m-2"
+                        value="Chnage password"
+                        className="custom-btn btn-1 mt-4"
                         onClick={loginAction}
                       />
                     </div>
-
-                    <div style={{ paddingLeft: "70px" }}>
-                      <div className="row justify-content-center mt-3">
-                        <div className="col-12 col-md-5 mr-5 fs-5">
-                          Not yet Registered?
-                          <a href="/falreg">Register</a>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </form>
+                {isSuccess && (
+                  <div className="text-success">Password changed<FaCheck className="ms-1 mb-1"/></div>
+                )}
+                {isError && <div className="text-danger">Invalid username<FaExclamationCircle className="ms-1 mb-1"/></div>}
                 <div className="form-group col-md-12 col-sm-12 col-xs-12">
                   <div
                     className="alert alert-warning"
@@ -156,18 +154,6 @@ function FacultyForgetPass() {
         </div>
         <Footer1 />
         <Bottom1 />
-
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Response</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{modalContent}</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </>
   );

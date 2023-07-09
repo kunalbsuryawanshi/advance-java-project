@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
 import InnerNavigation from "./InnerNavigation";
+import { FaCheck } from "react-icons/fa";
 
 
 
@@ -12,7 +13,6 @@ function LeaveApplication() {
   let formRef = useRef();
 
   let [isSuccess, setIsSuccess] = useState(false);
-  let [isError, setIsError] = useState(false);
 
   
   let [user, setUser] = useState({
@@ -40,12 +40,12 @@ function LeaveApplication() {
     let url = "http://localhost:8181/leave-application";
     axios.post(url, user).then((response) => {
       localStorage.setItem("loginStatuscan", "true");
-      navigate("/RaiseConcern", { replace: true });
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        navigate("/RaiseConcern", { replace: true });
+      }, 2000);
     });
-    setTimeout(() => {
-      setIsError(false);
-      setIsSuccess(false);
-    }, 2000);
   };
   return (
     <>
@@ -96,6 +96,12 @@ function LeaveApplication() {
               onClick={submitAction}
             />
           </form>
+          {isSuccess && (
+              <div className="text-success text-center mt-3">
+                Application registered
+                <FaCheck className="ms-1 mb-1" />
+              </div>
+            )}
         </div>
       </div>
     </>

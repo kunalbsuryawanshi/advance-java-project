@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import InnerNavigation from "./InnerNavigation";
+import { FaCheck } from "react-icons/fa";
 
 function ComplaintRegistration() {
   const navigate = useNavigate();
   let formRef = useRef();
 
   let [isSuccess, setIsSuccess] = useState(false);
-  let [isError, setIsError] = useState(false);
 
   let [user, setUser] = useState({
     toEmail: "cdacmumbai@gmail.com",
@@ -36,12 +36,12 @@ function ComplaintRegistration() {
     let url = "http://localhost:8181/complaint-registration";
     axios.post(url, user).then((response) => {
       localStorage.setItem("loginStatuscan", "true");
-      navigate("/RaiseConcern", { replace: true });
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        navigate("/RaiseConcern", { replace: true });
+      }, 2000);
     });
-    setTimeout(() => {
-      setIsError(false);
-      setIsSuccess(false);
-    }, 2000);
   };
   return (
     <>
@@ -89,6 +89,12 @@ function ComplaintRegistration() {
               value="Submit"
               onClick={submitAction}
             />
+            {isSuccess && (
+              <div className="text-success text-center mt-3">
+                Complaint registered
+                <FaCheck className="ms-1 mb-1" />
+              </div>
+            )}
           </form>
         </div>
       </div>
