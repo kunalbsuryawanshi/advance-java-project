@@ -65,7 +65,7 @@ function FacultyLogin() {
         <div className="App">
           <div className="portion shadow-lg">
             <h1 className="d-flex p-5 text-white">
-              <FaAddressBook className="mt-1 me-2 text-danger" />
+              <FaAddressBook className="mt-1 me-2 text-warning" />
               Faculty Login
             </h1>
             <br />

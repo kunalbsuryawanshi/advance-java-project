@@ -1,6 +1,6 @@
 import Bottom1 from "./Bottom";
 import "./ContactCss.css";
-
+import contactus from "../Images/contactus.jpg";
 import React, { useState } from "react";
 import Footer1 from "./Footer";
 import NewNavbar from "./Navbar";
@@ -70,6 +70,7 @@ const Contact = () => {
       });
       // Reset validation errors
       setValidationErrors({});
+      alert("Thank for contacting us...");
     }
   };
 
@@ -83,42 +84,11 @@ const Contact = () => {
     <>
       <NewNavbar />
       <div>
-        <div
-          className="contact2"
-          style={{ backgroundImage: "url('https://www.cdac.in/img/hpc.png')", backgroundRepeat:'no-repeat' }}
-          id="contact"
-        >
-          <h1 style={{ color: "orange", fontSize: 70 }}>Contact Us</h1>
-
-          <div className="spinner-grow text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div className="spinner-grow text-secondary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div className="spinner-grow text-success" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div className="spinner-grow text-danger" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div className="spinner-grow text-warning" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div className="spinner-grow text-info" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div className="spinner-grow text-light" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <div className="spinner-grow text-dark" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-
-          <div className="container">
+        <div className="contact2 bg" id="contact">
+          <div style={{marginTop:'350px'}} className="container">
             <div className="row contact-container">
               <div className="col-lg-12">
-                <div className="card card-shadow border-0 mb-4">
+                <div className="card card-shadow border-0 mb-4 shadow-lg">
                   <div className="row">
                     <div className="col-lg-8">
                       <div className="contact-box p-4">

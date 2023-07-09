@@ -3,6 +3,7 @@ import Carousel from "./Carousel";
 import Footer1 from "./Footer";
 import NewNavbar from "./Navbar";
 import Body from "./Body";
+import { FaHouseUser, FaSchool } from "react-icons/fa";
 
 function Home() {
   return (
@@ -12,8 +13,8 @@ function Home() {
       <div className="portion " style={{ height: "200px" }}>
         <div className="container ">
           <div className="row">
-            <div className="col-md-12">
-              <h1 className="mt-5 text-light">C-DAC Centre @ Mumbai</h1>
+            <div className="col-md-12 col-md-4 mt-3">
+              <h1 className="mt-5 text-light"><FaSchool className="mb-2 text-warning me-2"/>C-DAC Centre @Mumbai</h1>
               <p className="image-aboutus-para"></p>
             </div>
           </div>

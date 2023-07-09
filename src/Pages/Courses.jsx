@@ -21,9 +21,9 @@ function Courses() {
       <div className="portion" >
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              <h1 className="lg-text mt-4">
-                <FaStackOverflow className="mb-3 text-primary"/> Courses{" "}
+            <div className="col-md-12 col-md-4 mt-5">
+              <h1 className="text-light mt-4">
+                <FaStackOverflow className="mb-3 text-warning"/> Courses{" "}
               </h1>
               <p className="image-aboutus-para"></p>
             </div>

@@ -66,7 +66,7 @@ function CandidateLogin() {
         <div className="portion shadow-lg">
           <h1 className="d-flex p-5 text-white">
             {" "}
-            <FaAddressBook className="mt-1 me-2 text-danger" />
+            <FaAddressBook className="mt-1 me-2 text-warning" />
             Student Login
           </h1>
         </div>

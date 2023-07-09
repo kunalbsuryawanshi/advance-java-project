@@ -8,6 +8,7 @@ import kunal from "../Images/Kunal1.jpg";
 import abhishek from "../Images/Abhishek.jpg";
 import vision from "../Images/aboutus9.1.jpg";
 import aboutus4 from "../Images/aboutus4.jpg";
+import { FaUser } from "react-icons/fa";
 function Aboutus() {
   let textAlign = { textAlign: "justify" };
   let border = { border: "none" };
@@ -17,9 +18,9 @@ function Aboutus() {
       <div className="portion " style={{ height: "300px" }}>
         <div className="container ">
           <div className="row">
-            <div className="col-md-12">
-              <h1 className="lg-text mt-5">
-                <span className="text-success">C-DAC</span> Management System
+            <div className="col-md-12 col-md-4 mt-5 pt-3">
+              <h1 className="mt-5 text-light">
+                <FaUser className="mb-2 me-2 text-warning"/>About C-DAC
               </h1>
               <p className="image-aboutus-para"></p>
             </div>

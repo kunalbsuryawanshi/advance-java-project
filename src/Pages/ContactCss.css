@@ -8,6 +8,11 @@
   background-position: center top;
 }
 
+.bg {
+  background-image: url(../Images/contactus.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
 .contact2 h1,
 .contact2 h2,
 .contact2 h3,
