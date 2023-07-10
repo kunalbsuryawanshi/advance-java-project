@@ -150,7 +150,7 @@ function Footer1() {
         <ul className="pb-4" style={{ listStyle: "none" }}>
           <li>
             <a
-              href="/index.aspx?id=about"
+              href="/aboutus"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
@@ -159,7 +159,7 @@ function Footer1() {
           </li>
           <li>
             <a
-              href="/index.aspx?id=products_services"
+              href="https://www.cdac.in/index.aspx?id=products_services"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
@@ -168,7 +168,7 @@ function Footer1() {
           </li>
           <li>
             <a
-              href="/index.aspx?id=research"
+              href="https://www.cdac.in/index.aspx?id=research"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
@@ -177,7 +177,7 @@ function Footer1() {
           </li>
           <li>
             <a
-              href="/index.aspx?id=career"
+              href="https://www.cdac.in/index.aspx?id=career"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
@@ -186,7 +186,7 @@ function Footer1() {
           </li>
           <li>
             <a
-              href="/index.aspx?id=tenders"
+              href="https://www.cdac.in/index.aspx?id=tenders"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
@@ -213,7 +213,7 @@ function Footer1() {
           </li>
           <li>
             <a
-              href="/index.aspx?id=events"
+              href="https://www.cdac.in/index.aspx?id=events"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
@@ -222,7 +222,7 @@ function Footer1() {
           </li>
           <li>
             <a
-              href="/index.aspx?id=Awards"
+              href="https://www.cdac.in/index.aspx?id=search&search=awards&pageNo=0"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
@@ -249,7 +249,7 @@ function Footer1() {
           </li>
           <li>
             <a
-              href="/index.aspx?id=alliance"
+              href="https://www.cdac.in/index.aspx?id=search&search=alliance&pageNo=0"
               style={{ textDecorationLine: "none" }}
               className="tab-link-text link-dark"
             >
